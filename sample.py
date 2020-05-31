@@ -9,21 +9,21 @@ pitch_type_detector = PitchTypeDetector()
 speed_detector = SpeedDetector()
 
 pitch_type_text = ''
+pitch_type_image = None
 speed_text = ''
+speed_image = None
 
 for i in range(frame_count):
     _, frame = video.read()
-    if pitch_type_text == '':
-        ptt, pti = pitch_type_detector.detect(frame)
-        if ptt != '':
-            pitch_type_text = ptt
-            cv2.imwrite('./output/pitch_type.jpg', pti)
 
-    if speed_text == '':
-        st, si = speed_detector.detect(frame)
-        if st != '':
-            speed_text = st
-            cv2.imwrite('./output/speed.jpg', si)
+    ptt, pti = pitch_type_detector.detect(frame)
+    pitch_type_text = ptt
+    pitch_type_image = pti
+    st, si = speed_detector.detect(frame)
+    speed_text = st
+    speed_image = si
 
 video.release()
 print(f'{pitch_type_text}, {speed_text}')
+cv2.imwrite('./output/pitch_type.jpg', pitch_type_image)
+cv2.imwrite('./output/speed.jpg', speed_image)
