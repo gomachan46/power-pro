@@ -15,13 +15,8 @@ speed_image = None
 
 for i in range(frame_count):
     _, frame = video.read()
-
-    ptt, pti = pitch_type_detector.detect(frame)
-    pitch_type_text = ptt
-    pitch_type_image = pti
-    st, si = speed_detector.detect(frame)
-    speed_text = st
-    speed_image = si
+    pitch_type_text, pitch_type_image = pitch_type_detector.detect(frame)
+    speed_text, speed_image = speed_detector.detect(frame)
 
 video.release()
 print(f'{pitch_type_text}, {speed_text}')
