@@ -2,7 +2,7 @@ from ocr import Ocr
 import cv2
 
 class SpeedDetector:
-    THRESHOLD_VALUE = 220
+    THRESHOLD_VALUE = 218
     THRESHOLD_MAX_VALUE = 255
     X = 512
     Y = 626
