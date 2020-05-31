@@ -4,11 +4,14 @@ import pyocr
 import pyocr.builders
 
 class Ocr:
-    def __init__(self, lang='jpn'):
+    def __init__(self, lang='jpn', type='text'):
         tools = pyocr.get_available_tools()
         self.tool = tools[0]
         self.lang = lang
-        self.builder = pyocr.builders.TextBuilder(tesseract_layout=6)
+        if type == 'text':
+            self.builder = pyocr.builders.TextBuilder(tesseract_layout=6)
+        elif type == 'digit':
+            self.builder = pyocr.builders.DigitBuilder(tesseract_layout=6)
 
     def image_to_string(self, image):
         return self.tool.image_to_string(self.__cv2pil(image), lang=self.lang, builder=self.builder)

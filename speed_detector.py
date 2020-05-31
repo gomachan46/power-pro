@@ -6,11 +6,11 @@ class SpeedDetector:
     THRESHOLD_MAX_VALUE = 255
     X = 512
     Y = 626
-    WIDTH = 256
+    WIDTH = 128
     HEIGHT = 50
 
     def __init__(self):
-        self.ocr = Ocr(lang='eng')
+        self.ocr = Ocr(lang='eng', type='digit')
 
     def detect(self, image):
         gray_image = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
