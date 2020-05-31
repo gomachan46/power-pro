@@ -2,7 +2,7 @@ from ocr import Ocr
 import cv2
 
 class PitchTypeDetector:
-    THRESHOLD_VALUE = 215
+    THRESHOLD_VALUE = 220
     THRESHOLD_MAX_VALUE = 255
     X = 512
     Y = 576

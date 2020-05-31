@@ -2,7 +2,7 @@ from ocr import Ocr
 import cv2
 
 class SpeedDetector:
-    THRESHOLD_VALUE = 215
+    THRESHOLD_VALUE = 220
     THRESHOLD_MAX_VALUE = 255
     X = 512
     Y = 626
@@ -10,7 +10,7 @@ class SpeedDetector:
     HEIGHT = 50
 
     def __init__(self):
-        self.ocr = Ocr()
+        self.ocr = Ocr(lang='eng')
 
     def detect(self, image):
         gray_image = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
