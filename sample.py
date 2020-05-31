@@ -3,6 +3,7 @@ import numpy as np
 import cv2
 import pyocr
 import pyocr.builders
+from pitch_type_detector import PitchTypeDetector
 
 def cv2pil(image):
     new_image = image.copy()
@@ -31,6 +32,7 @@ pitch_type_params = { 'x': 512, 'y': 576 }
 speed_params = { 'x': 512, 'y': 626 }
 pitch_type_text = ''
 speed_text = ''
+pitch_type_detector = PitchTypeDetector()
 
 for i in range(frame_count):
     _, frame = video.read()
@@ -38,11 +40,10 @@ for i in range(frame_count):
     _, threshold_image = cv2.threshold(gray, 215, 255, cv2.THRESH_BINARY)
 
     if pitch_type_text == '':
-        pitch_type_image = threshold_image[pitch_type_params['y'] : pitch_type_params['y'] + height, pitch_type_params['x'] : pitch_type_params['x'] + width]
-        ptt = image2text(pitch_type_image)
+        ptt, pti = pitch_type_detector.detect(frame)
         if ptt != '':
             pitch_type_text = ptt
-            cv2.imwrite('./output/pitch_type.jpg', pitch_type_image)
+            cv2.imwrite('./output/pitch_type.jpg', pti)
 
     if speed_text == '':
         speed_image = threshold_image[speed_params['y'] : speed_params['y'] + height, speed_params['x'] : speed_params['x'] + width]
