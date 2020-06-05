@@ -16,10 +16,19 @@ def analyze(pathname, filename):
 
     for i in range(frame_count):
         _, frame = video.read()
-        pitch_type_text, pitch_type_image = pitch_type_detector.detect(frame)
-        speed_text, speed_image = speed_detector.detect(frame)
+        ptt, pti = pitch_type_detector.detect(frame)
+        # 球種表示で動画が終わらないのもままあるので雑なパッチにしてる
+        if ptt == 'ストレート' or ptt == 'チェンジアップ':
+            pitch_type_text = ptt
+            pitch_type_image = pti
+            speed_text, speed_image = speed_detector.detect(frame)
 
     video.release()
+
+    if pitch_type_text == '' or speed_text == '':
+        print(f'{filename} うまく検出できなかったぽい')
+        return
+
     print(f'{filename}, {pitch_type_text}, {speed_text}')
     cv2.imwrite(f'./output/{filename}_pitch_type.jpg', pitch_type_image)
     cv2.imwrite(f'./output/{filename}_speed.jpg', speed_image)

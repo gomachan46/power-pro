@@ -11,6 +11,8 @@ class Ocr:
         if type == 'text':
             self.builder = pyocr.builders.TextBuilder(tesseract_layout=6)
         elif type == 'digit':
+            # Tesseractが4になってからdigitBuilderが効かないようになってるらしくてつらい...
+            # 本当はここで良い感じに数字のみ認識可能になってほしい
             self.builder = pyocr.builders.DigitBuilder(tesseract_layout=6)
 
     def image_to_string(self, image):
